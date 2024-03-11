@@ -36,11 +36,12 @@ public class LawnMowerInputUtil {
                 String[] split = lines.get(i).split("\\s");
                 int x = Integer.parseInt(split[0]);
                 int y = Integer.parseInt(split[1]);
-                Direction direction = Direction.valueOf(split[2]);
+
+                Direction direction = Direction.valueOf(split[2].toUpperCase().toCharArray()[0]);
                 Position mowerPosition = new Position(x, y, direction);
 
                 List<Command> commands = lines.get(i + 1).chars()
-                        .mapToObj(chr -> Command.valueOf(String.valueOf(chr).toUpperCase()))
+                        .mapToObj(chr -> Command.valueOf(String.valueOf(chr).toUpperCase().toCharArray()[0]))
                         .collect(Collectors.toList());
                 mowerActionInputCtxes.add(new LawnMowerInput.SingleMowerActions(mowerPosition, commands));
 
