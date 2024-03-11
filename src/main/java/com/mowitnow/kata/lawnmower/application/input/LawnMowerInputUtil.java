@@ -1,10 +1,10 @@
-package com.sg.kata.lawnmower.application.input;
+package com.mowitnow.kata.lawnmower.application.input;
 
-import com.sg.kata.lawnmower.application.input.exceptions.InvalidInputFileException;
-import com.sg.kata.lawnmower.domain.Command;
-import com.sg.kata.lawnmower.domain.Direction;
-import com.sg.kata.lawnmower.domain.Position;
-import com.sg.kata.lawnmower.domain.lawn.Lawn;
+import com.mowitnow.kata.lawnmower.application.input.exceptions.InvalidInputFileException;
+import com.mowitnow.kata.lawnmower.domain.Command;
+import com.mowitnow.kata.lawnmower.domain.Direction;
+import com.mowitnow.kata.lawnmower.domain.Position;
+import com.mowitnow.kata.lawnmower.domain.lawn.Lawn;
 import lombok.experimental.UtilityClass;
 
 import java.nio.file.Files;
@@ -31,7 +31,7 @@ public class LawnMowerInputUtil {
             Lawn lawn = new Lawn(maxHeight, maxWidth);
 
             int i = 2;
-            List<LawnMowerInput.MowerActions> mowerActionInputCtxes = new ArrayList<>();
+            List<LawnMowerInput.SingleMowerActions> mowerActionInputCtxes = new ArrayList<>();
             while (i < lines.size()) {
                 String[] split = lines.get(i).split("\\s");
                 int x = Integer.parseInt(split[0]);
@@ -42,7 +42,7 @@ public class LawnMowerInputUtil {
                 List<Command> commands = lines.get(i + 1).chars()
                         .mapToObj(chr -> Command.valueOf(String.valueOf(chr).toUpperCase()))
                         .collect(Collectors.toList());
-                mowerActionInputCtxes.add(new LawnMowerInput.MowerActions(mowerPosition,commands));
+                mowerActionInputCtxes.add(new LawnMowerInput.SingleMowerActions(mowerPosition,commands));
 
                 i += 2;
             }

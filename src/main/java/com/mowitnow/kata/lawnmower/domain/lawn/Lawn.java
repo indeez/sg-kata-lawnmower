@@ -1,4 +1,4 @@
-package com.sg.kata.lawnmower.domain.lawn;
+package com.mowitnow.kata.lawnmower.domain.lawn;
 
 import lombok.Value;
 

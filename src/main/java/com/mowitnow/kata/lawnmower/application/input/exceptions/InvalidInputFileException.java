@@ -1,4 +1,4 @@
-package com.sg.kata.lawnmower.application.input.exceptions;
+package com.mowitnow.kata.lawnmower.application.input.exceptions;
 
 public class InvalidInputFileException extends RuntimeException{
 }

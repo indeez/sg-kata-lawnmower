@@ -1,4 +1,4 @@
-package com.sg.kata.lawnmower.domain;
+package com.mowitnow.kata.lawnmower.domain;
 
 import lombok.Getter;
 
@@ -28,14 +28,11 @@ public enum Direction {
     }
 
     public Direction rotate(Command command) {
-        switch (command) {
-            case D:
-                return Direction.values()[Math.floorMod(ordinal() + 1, Direction.values().length)];
-            case G:
-                return Direction.values()[Math.floorMod(ordinal() - 1, Direction.values().length)];
-            default:
-                return this;
-        }
+        return switch (command) {
+            case D -> Direction.values()[Math.floorMod(ordinal() + 1, Direction.values().length)];
+            case G -> Direction.values()[Math.floorMod(ordinal() - 1, Direction.values().length)];
+            default -> this;
+        };
     }
 
 
