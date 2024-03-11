@@ -9,30 +9,30 @@ public enum Direction {
     /**
      *
      */
-    N("North"),
+    NORTH('N'),
     /**
      *
      */
-    E("East"),
+    EAST('E'),
     /**
      *
      */
-    S("South"),
+    SOUTH('S'),
     /**
      *
      */
-    W("West");
+    WEST('W');
 
-    private final String longName;
+    private final char canonicalName;
 
-    Direction(String direction) {
-        this.longName = direction;
+    Direction(char canonicalName) {
+        this.canonicalName = canonicalName;
     }
 
     public Direction rotate(Command command) {
         return switch (command) {
-            case D -> Direction.values()[floorMod(ordinal() + 1, Direction.values().length)];
-            case G -> Direction.values()[floorMod(ordinal() - 1, Direction.values().length)];
+            case ROTATE_RIGHT -> Direction.values()[floorMod(ordinal() + 1, Direction.values().length)];
+            case ROTATE_LEFT -> Direction.values()[floorMod(ordinal() - 1, Direction.values().length)];
             default -> this;
         };
     }

@@ -16,24 +16,24 @@ public class MovingPositionValidatorTest {
     @Test
     public void should_be_invalid_to_go_south_from_position_0_0() {
         MovingPositionValidator validator = new MovingPositionValidator(new Lawn(5, 5));
-        assertFalse(validator.test(new MovingPositionValidatorParams(new Position(0, 0, Direction.S), Command.A)));
+        assertFalse(validator.test(new MovingPositionValidatorParams(new Position(0, 0, Direction.SOUTH), Command.FORWARD)));
     }
 
     @Test
     public void should_be_invalid_to_go_north_from_position_0_5() {
         MovingPositionValidator validator = new MovingPositionValidator(new Lawn(5, 5));
-        assertFalse(validator.test(new MovingPositionValidatorParams(new Position(0, 5, Direction.N), Command.A)));
+        assertFalse(validator.test(new MovingPositionValidatorParams(new Position(0, 5, Direction.NORTH), Command.FORWARD)));
     }
 
     @Test
     public void should_be_valid_to_go_north_from_position_0_0() {
         MovingPositionValidator validator = new MovingPositionValidator(new Lawn(5, 5));
-        assertTrue(validator.test(new MovingPositionValidatorParams(new Position(0, 0, Direction.N), Command.A)));
+        assertTrue(validator.test(new MovingPositionValidatorParams(new Position(0, 0, Direction.NORTH), Command.FORWARD)));
     }
 
     @Test
     public void should_be_valid_to_go_north_from_position_3_3() {
         MovingPositionValidator validator = new MovingPositionValidator(new Lawn(5, 5));
-        assertTrue(validator.test(new MovingPositionValidatorParams(new Position(3, 3, Direction.N), Command.A)));
+        assertTrue(validator.test(new MovingPositionValidatorParams(new Position(3, 3, Direction.NORTH), Command.FORWARD)));
     }
 }

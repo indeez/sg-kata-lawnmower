@@ -23,10 +23,10 @@ public class App {
     }
     List<Position> computeFinalPosition(LawnMowerInput ctx) {
         List<Position> answer = new ArrayList<>();
-        for (var mowerAction : ctx.getSingleMowerActions()) {
-            Position currentPosition = mowerAction.getInitial();
-            Validator<MovingPositionValidatorParams> validator = new MovingPositionValidator(ctx.getLawn());
-            for (Command command : mowerAction.getCommands()) {
+        for (var mowerAction : ctx.singleMowerActions()) {
+            Position currentPosition = mowerAction.initial();
+            Validator<MovingPositionValidatorParams> validator = new MovingPositionValidator(ctx.lawn());
+            for (Command command : mowerAction.commands()) {
                 if (validator.test(new MovingPositionValidatorParams(currentPosition, command))) {
                     currentPosition = command.getForwardPosition(currentPosition);
                     log.debug(command + " | " + currentPosition);

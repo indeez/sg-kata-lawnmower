@@ -9,21 +9,21 @@ public class DirectionTest {
 
     @Test
     public void should_look_east_if_rotate_d_from_north() {
-        assertSame(Direction.E, Direction.N.rotate(Command.D));
+        assertSame(Direction.EAST, Direction.NORTH.rotate(Command.ROTATE_RIGHT));
     }
 
     @Test
     public void should_look_west_if_rotate_d_from_south() {
-        assertSame(Direction.W, Direction.S.rotate(Command.D));
+        assertSame(Direction.WEST, Direction.SOUTH.rotate(Command.ROTATE_RIGHT));
     }
 
     @Test
     public void should_look_east_if_rotate_g_from_south() {
-        assertSame(Direction.E, Direction.S.rotate(Command.G));
+        assertSame(Direction.EAST, Direction.SOUTH.rotate(Command.ROTATE_LEFT));
     }
 
     @Test
     public void should_look_south_if_rotate_g_from_west() {
-        assertSame(Direction.S, Direction.W.rotate(Command.G));
+        assertSame(Direction.SOUTH, Direction.WEST.rotate(Command.ROTATE_LEFT));
     }
 }

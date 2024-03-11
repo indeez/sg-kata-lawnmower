@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static com.mowitnow.kata.lawnmower.domain.Command.*;
-import static com.mowitnow.kata.lawnmower.domain.Direction.E;
-import static com.mowitnow.kata.lawnmower.domain.Direction.N;
+import static com.mowitnow.kata.lawnmower.domain.Direction.EAST;
+import static com.mowitnow.kata.lawnmower.domain.Direction.NORTH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -32,14 +32,14 @@ public class AppTest {
         LawnMowerInput input = new LawnMowerInput(new Lawn(5, 5),
                 List.of(
                         new LawnMowerInput.SingleMowerActions(
-                                new Position(1, 2, Direction.N),
-                                List.of(G, A, G, A, G, A, G, A, A)),
+                                new Position(1, 2, Direction.NORTH),
+                                List.of(ROTATE_LEFT, FORWARD, ROTATE_LEFT, FORWARD, ROTATE_LEFT, FORWARD, ROTATE_LEFT, FORWARD, FORWARD)),
                         new LawnMowerInput.SingleMowerActions(
-                                new Position(3, 3, E),
-                                List.of(A, A, D, A, A, D, A, D, D, A))
+                                new Position(3, 3, EAST),
+                                List.of(FORWARD, FORWARD, ROTATE_RIGHT, FORWARD, FORWARD, ROTATE_RIGHT, FORWARD, ROTATE_RIGHT, ROTATE_RIGHT, FORWARD))
                 ));
 
-        assertEquals(List.of(new Position(1, 3, N), new Position(5, 1, E)), app.computeFinalPosition(input));
+        assertEquals(List.of(new Position(1, 3, NORTH), new Position(5, 1, EAST)), app.computeFinalPosition(input));
 
     }
 }

@@ -9,12 +9,12 @@ public class CommandTest {
 
     @Test
     public void should_move_to_north_from_one_position() {
-        assertEquals(new Position(1, 2, Direction.N), Command.A.getForwardPosition(new Position(1, 1, Direction.N)));
+        assertEquals(new Position(1, 2, Direction.NORTH), Command.FORWARD.getForwardPosition(new Position(1, 1, Direction.NORTH)));
     }
 
     @Test
     public void should_rotate_to_west_without_moving() {
-        assertEquals(new Position(1, 1, Direction.W), Command.G.getForwardPosition(new Position(1, 1, Direction.N)));
+        assertEquals(new Position(1, 1, Direction.WEST), Command.ROTATE_LEFT.getForwardPosition(new Position(1, 1, Direction.NORTH)));
     }
 
 

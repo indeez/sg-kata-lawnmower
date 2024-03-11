@@ -1,32 +1,50 @@
 package com.mowitnow.kata.lawnmower.domain;
 
+import lombok.Getter;
+
 import static java.lang.Math.addExact;
 import static java.lang.Math.subtractExact;
 
+@Getter
 public enum Command {
 
     /**
-     * GAUCHE
+     * Turn at left without moving
      */
-    G,
+    ROTATE_LEFT('G'),
     /**
-     * DROITE
+     * Turn at right without moving
      */
-    D,
+    ROTATE_RIGHT('D'),
     /**
-     * AVANCE
+     * keep moving from one position
      */
-    A;
+    FORWARD('A');
+
+    private final char canonicalName;
+
+    Command(char canonicalName) {
+        this.canonicalName = canonicalName;
+    }
+
+    public static Command valueOf(char canonicalName) {
+        return switch (canonicalName) {
+            case 'G' -> ROTATE_LEFT;
+            case 'D' -> ROTATE_RIGHT;
+            case 'A' -> FORWARD;
+            default -> throw new IllegalArgumentException("Unexpected value: " + canonicalName);
+        };
+    }
 
     public Position getForwardPosition(Position from) {
         return switch (this) {
-            case A -> switch (from.direction()) {
-                case E -> new Position(addExact(from.x(), 1), from.y(), Direction.E);
-                case W -> new Position(subtractExact(from.x(), 1), from.y(), Direction.W);
-                case N -> new Position(from.x(), addExact(from.y(), 1), Direction.N);
-                case S -> new Position(from.x(), subtractExact(from.y(), 1), Direction.S);
+            case FORWARD -> switch (from.direction()) {
+                case EAST -> new Position(addExact(from.x(), 1), from.y(), Direction.EAST);
+                case WEST -> new Position(subtractExact(from.x(), 1), from.y(), Direction.WEST);
+                case NORTH -> new Position(from.x(), addExact(from.y(), 1), Direction.NORTH);
+                case SOUTH -> new Position(from.x(), subtractExact(from.y(), 1), Direction.SOUTH);
             };
-            case D, G -> new Position(from.x(), from.y(), from.direction().rotate(this));
+            case ROTATE_RIGHT, ROTATE_LEFT -> new Position(from.x(), from.y(), from.direction().rotate(this));
         };
     }
 
