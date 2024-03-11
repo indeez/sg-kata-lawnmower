@@ -26,8 +26,12 @@ public class AppTest {
             AADAADADDA
             """;
 
+    public void should_load_file_content_using_template_string(){
+        App app = new App();
+    }
+
     @Test
-    public void shouldAnswerWithTrue() {
+    public void should_be_true_with_kata_provided_specification() {
         App app = new App();
         LawnMowerInput input = new LawnMowerInput(new Lawn(5, 5),
                 List.of(
@@ -38,8 +42,6 @@ public class AppTest {
                                 new Position(3, 3, EAST),
                                 List.of(FORWARD, FORWARD, ROTATE_RIGHT, FORWARD, FORWARD, ROTATE_RIGHT, FORWARD, ROTATE_RIGHT, ROTATE_RIGHT, FORWARD))
                 ));
-
         assertEquals(List.of(new Position(1, 3, NORTH), new Position(5, 1, EAST)), app.computeFinalPosition(input));
-
     }
 }

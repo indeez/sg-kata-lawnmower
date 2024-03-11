@@ -9,6 +9,7 @@ import com.mowitnow.kata.lawnmower.domain.validator.position.MovingPositionValid
 import com.mowitnow.kata.lawnmower.domain.validator.position.MovingPositionValidatorParams;
 import lombok.extern.log4j.Log4j2;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +18,16 @@ import java.util.List;
  */
 @Log4j2
 public class App {
-    public List<Position> execute(String inputFile) {
+    public List<Position> mow(String inputContent) {
+        LawnMowerInput ctx = LawnMowerInputUtil.load(inputContent);
+        return computeFinalPosition(ctx);
+    }
+
+    public List<Position> mow(Path inputFile) {
         LawnMowerInput ctx = LawnMowerInputUtil.load(inputFile);
         return computeFinalPosition(ctx);
     }
+
     List<Position> computeFinalPosition(LawnMowerInput ctx) {
         List<Position> answer = new ArrayList<>();
         for (var mowerAction : ctx.singleMowerActions()) {
@@ -41,6 +48,6 @@ public class App {
 
     public static void main(String[] args) {
         App application = new App();
-        application.execute(args[0]).forEach(log::info);
+        application.mow(args[0]).forEach(log::info);
     }
 }
