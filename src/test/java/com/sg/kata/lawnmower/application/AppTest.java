@@ -26,9 +26,6 @@ public class AppTest {
             AADAADADDA
             """;
 
-    /**
-     * Rigorous Test :-)
-     */
     @Test
     public void shouldAnswerWithTrue() {
         App app = new App();
