@@ -26,8 +26,11 @@ public class AppTest {
             AADAADADDA
             """;
 
+    @Test
     public void should_load_file_content_using_template_string(){
         App app = new App();
+        List<Position> endPositions = app.mow(INPUT_CONTENT);
+        assertEquals(List.of(new Position(1, 3, NORTH), new Position(5, 1, EAST)), endPositions);
     }
 
     @Test
@@ -42,6 +45,6 @@ public class AppTest {
                                 new Position(3, 3, EAST),
                                 List.of(FORWARD, FORWARD, ROTATE_RIGHT, FORWARD, FORWARD, ROTATE_RIGHT, FORWARD, ROTATE_RIGHT, ROTATE_RIGHT, FORWARD))
                 ));
-        assertEquals(List.of(new Position(1, 3, NORTH), new Position(5, 1, EAST)), app.computeFinalPosition(input));
+        assertEquals(List.of(new Position(1, 3, NORTH), new Position(5, 1, EAST)), app.doMow(input));
     }
 }

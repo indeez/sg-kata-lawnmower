@@ -1,7 +1,7 @@
 package com.mowitnow.kata.lawnmower.application;
 
 import com.mowitnow.kata.lawnmower.application.input.LawnMowerInput;
-import com.mowitnow.kata.lawnmower.application.input.LawnMowerInputUtil;
+import com.mowitnow.kata.lawnmower.application.input.LawnMowerInputLoader;
 import com.mowitnow.kata.lawnmower.domain.Command;
 import com.mowitnow.kata.lawnmower.domain.Position;
 import com.mowitnow.kata.lawnmower.domain.validator.Validator;
@@ -19,16 +19,16 @@ import java.util.List;
 @Log4j2
 public class App {
     public List<Position> mow(String inputContent) {
-        LawnMowerInput ctx = LawnMowerInputUtil.load(inputContent);
-        return computeFinalPosition(ctx);
+        LawnMowerInput ctx = LawnMowerInputLoader.load(inputContent);
+        return doMow(ctx);
     }
 
     public List<Position> mow(Path inputFile) {
-        LawnMowerInput ctx = LawnMowerInputUtil.load(inputFile);
-        return computeFinalPosition(ctx);
+        LawnMowerInput ctx = LawnMowerInputLoader.load(inputFile);
+        return doMow(ctx);
     }
 
-    List<Position> computeFinalPosition(LawnMowerInput ctx) {
+    List<Position> doMow(LawnMowerInput ctx) {
         List<Position> answer = new ArrayList<>();
         for (var mowerAction : ctx.singleMowerActions()) {
             Position currentPosition = mowerAction.initial();
