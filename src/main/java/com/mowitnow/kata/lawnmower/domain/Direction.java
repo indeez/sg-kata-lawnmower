@@ -2,6 +2,8 @@ package com.mowitnow.kata.lawnmower.domain;
 
 import lombok.Getter;
 
+import static java.lang.Math.floorMod;
+
 @Getter
 public enum Direction {
     /**
@@ -29,8 +31,8 @@ public enum Direction {
 
     public Direction rotate(Command command) {
         return switch (command) {
-            case D -> Direction.values()[Math.floorMod(ordinal() + 1, Direction.values().length)];
-            case G -> Direction.values()[Math.floorMod(ordinal() - 1, Direction.values().length)];
+            case D -> Direction.values()[floorMod(ordinal() + 1, Direction.values().length)];
+            case G -> Direction.values()[floorMod(ordinal() - 1, Direction.values().length)];
             default -> this;
         };
     }

@@ -21,10 +21,8 @@ public class App {
         LawnMowerInput ctx = LawnMowerInputUtil.load(inputFile);
         return computeFinalPosition(ctx);
     }
-
     List<Position> computeFinalPosition(LawnMowerInput ctx) {
-        List<Position> result = new ArrayList<>();
-
+        List<Position> answer = new ArrayList<>();
         for (var mowerAction : ctx.getSingleMowerActions()) {
             Position currentPosition = mowerAction.getInitial();
             Validator<MovingPositionValidatorParams> validator = new MovingPositionValidator(ctx.getLawn());
@@ -36,10 +34,9 @@ public class App {
                     log.debug("apply " + command + " into position " + currentPosition + " is impossible");
                 }
             }
-            result.add(currentPosition);
+            answer.add(currentPosition);
         }
-        return result;
-
+        return answer;
     }
 
     public static void main(String[] args) {
