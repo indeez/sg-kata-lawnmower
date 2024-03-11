@@ -42,7 +42,7 @@ public class LawnMowerInputUtil {
                 List<Command> commands = lines.get(i + 1).chars()
                         .mapToObj(chr -> Command.valueOf(String.valueOf(chr).toUpperCase()))
                         .collect(Collectors.toList());
-                mowerActionInputCtxes.add(new LawnMowerInput.SingleMowerActions(mowerPosition,commands));
+                mowerActionInputCtxes.add(new LawnMowerInput.SingleMowerActions(mowerPosition, commands));
 
                 i += 2;
             }

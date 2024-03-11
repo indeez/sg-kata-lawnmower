@@ -11,8 +11,9 @@ import java.util.List;
 public class LawnMowerInput {
     Lawn lawn;
     List<SingleMowerActions> singleMowerActions;
-    
-    @Value public static class SingleMowerActions {
+
+    @Value
+    public static class SingleMowerActions {
         Position initial;
         List<Command> commands;
     }

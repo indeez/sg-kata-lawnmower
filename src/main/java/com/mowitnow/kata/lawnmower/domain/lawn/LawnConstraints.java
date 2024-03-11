@@ -8,12 +8,12 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class LawnConstraints {
 
-    public static boolean isValidMove(@NonNull Position initial, @NonNull Lawn lawn, @NonNull Command command) {
-        Position forwardPosition = command.getForwardPosition(initial);
+    public static boolean isValidMove(@NonNull Position from, @NonNull Lawn lawn, @NonNull Command to) {
+        Position forwardPosition = to.getForwardPosition(from);
         return forwardPosition.x() >= 0 &&
-                forwardPosition.x() <= lawn.getWidth() &&
+                forwardPosition.x() <= lawn.width() &&
                 forwardPosition.y() >= 0 &&
-                forwardPosition.y() <= lawn.getHeight();
+                forwardPosition.y() <= lawn.height();
     }
 
 }

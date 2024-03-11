@@ -6,7 +6,7 @@ import com.mowitnow.kata.lawnmower.domain.validator.Validator;
 
 public class MovingPositionValidator implements Validator<MovingPositionValidatorParams> {
 
-    private Lawn lawn;
+    private final Lawn lawn;
 
     public MovingPositionValidator(Lawn lawn) {
         this.lawn = lawn;
@@ -14,11 +14,11 @@ public class MovingPositionValidator implements Validator<MovingPositionValidato
 
     @Override
     public boolean test(MovingPositionValidatorParams argument) {
-        Position forwardPosition = argument.command().getForwardPosition(argument.from());
+        Position forwardPosition = argument.to().getForwardPosition(argument.from());
         return forwardPosition.x() >= 0 &&
-                forwardPosition.x() <= lawn.getWidth() &&
+                forwardPosition.x() <= lawn.width() &&
                 forwardPosition.y() >= 0 &&
-                forwardPosition.y() <= lawn.getHeight();
+                forwardPosition.y() <= lawn.height();
     }
 
 }
