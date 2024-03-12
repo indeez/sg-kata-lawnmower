@@ -53,26 +53,32 @@ Design and write a program in Java. This program must implement the
 specification above and pass the test below.
 
 ###### TEST
-The following file is provided as input: 5 5 1 2 N GAGAGAGAA 3 3 E AADAADADDA
-We expect the following result (final position of the mowers): 1 3 N 5 1 E NB: The
+The following file is provided as input: `5 5 1 2 N GAGAGAGAA 3 3 E AADAADADDA`
+We expect the following result (final position of the mowers): `1 3 N 5 1 E` NB: The
 Input data is injected as a file.
 
 ### Design
 ![image](./src/main/docs/App-structure.svg)
 
+- `Lawn` : bounded surface for mower
+- `Command` : 3 mainly actions possible from a position
+- `Position` : coordinate from bounded surface with Direction
+- `Direction` : Four usual cardinal points
+- `App` : Main class
 ### Solution
 
 Our solution is merely done by using behavior attached to component that modelize a real type enumeration, thus,
-a **Direction** is an enumeration class that provide it a type and additional behavior, in same way, a **Command**, that provide a action, is an enumeration as well.
-this design permits us to avoid moistly flaky case like ~~if..else if..~~ cascading : we added custom behavior on component when it makes sense
+a **Direction** is an enum class providing a type and additional behaviors, in same way,
+a **Command**, provide a action from a **Position**. This is an enumeration as well.
+This design permits us to avoid moistly flaky case like ~~if..else if..~~ cascading : we added custom behavior on component when it makes sense
 
 A dedicated component for input file loader has been built : it can takes as input a raw multine string content or an input file
 
 Thanks to java 17 and pattern matching flavor, we used _switch_ new form that produce compact code like kotlin form
 Each component has been unit testing in most ways, though, we can go further with Fuzz testing to discover more unit test scenarios.
 
-- Main class : com.mowitnow.kata.lawnmower.application.App.java;
-- Main Unit Test class : com.mowitnow.kata.lawnmower.application.AppTest.java;
+- Main class : `com.mowitnow.kata.lawnmower.application.App.java`
+- Main Unit Test class : `com.mowitnow.kata.lawnmower.application.AppTest.java`
 
 ### Interaction
 Generate a sequence diagram to understand involving components during execution

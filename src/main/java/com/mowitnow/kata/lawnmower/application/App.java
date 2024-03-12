@@ -38,7 +38,7 @@ public class App {
                     currentPosition = command.getForwardPosition(currentPosition);
                     log.debug(command + " | " + currentPosition);
                 } else {
-                    log.debug("apply " + command + " into position " + currentPosition + " is impossible");
+                    log.debug("Applying [ " + command + " ] into position [ " + currentPosition + " ] is impossible");
                 }
             }
             answer.add(currentPosition);
