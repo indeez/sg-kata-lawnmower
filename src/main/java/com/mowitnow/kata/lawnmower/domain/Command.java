@@ -1,6 +1,9 @@
 package com.mowitnow.kata.lawnmower.domain;
 
+import com.mowitnow.kata.lawnmower.domain.validator.Validator;
 import lombok.Getter;
+
+import java.util.Optional;
 
 import static java.lang.Math.addExact;
 import static java.lang.Math.subtractExact;
@@ -52,6 +55,10 @@ public enum Command {
             case ROTATE_RIGHT, ROTATE_LEFT -> new Position(from.x(), from.y(), from.direction().rotate(this));
             case NOP -> from;
         };
+    }
+
+    public Position getForwardPosition(Position from, Validator<Position> validator) {
+        return Optional.of(getForwardPosition(from)).filter(validator).orElse(from);
     }
 
 }

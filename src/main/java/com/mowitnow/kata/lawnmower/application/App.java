@@ -4,9 +4,7 @@ import com.mowitnow.kata.lawnmower.application.input.LawnMowerInput;
 import com.mowitnow.kata.lawnmower.application.input.LawnMowerInputLoader;
 import com.mowitnow.kata.lawnmower.domain.Command;
 import com.mowitnow.kata.lawnmower.domain.Position;
-import com.mowitnow.kata.lawnmower.domain.validator.Validator;
-import com.mowitnow.kata.lawnmower.domain.validator.position.MovingPositionValidator;
-import com.mowitnow.kata.lawnmower.domain.validator.position.MovingPositionValidatorParams;
+import com.mowitnow.kata.lawnmower.domain.validator.position.PositionValidator;
 import lombok.extern.log4j.Log4j2;
 
 import java.nio.file.Path;
@@ -32,22 +30,18 @@ public class App {
         List<Position> answer = new ArrayList<>();
         for (var mowerAction : ctx.singleMowerActions()) {
             Position currentPosition = mowerAction.initial();
-            Validator<MovingPositionValidatorParams> validator = new MovingPositionValidator(ctx.lawn());
             var endPosition = mowerAction.commands().stream()
                     .map(cmd -> new Pair<>(currentPosition, cmd))
-                    .filter(pair -> validator.test(new MovingPositionValidatorParams(pair.left(), pair.right())))
-                    .reduce(new Pair<>(currentPosition, Command.NOP), (acc, e) -> new Pair<>(e.right().getForwardPosition(acc.left()), e.right()))
+                    .reduce(new Pair<>(currentPosition, Command.NOP), (acc, e) -> new Pair<>(e.right().getForwardPosition(acc.left(),
+                            new PositionValidator(ctx.lawn())), e.right()))
                     .left();
             answer.add(endPosition);
-
         }
         return answer;
     }
 
     record Pair<K, V>(K left, V right) {
     }
-
-    ;
 
     public static void main(String[] args) {
         App application = new App();

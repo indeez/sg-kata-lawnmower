@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static com.mowitnow.kata.lawnmower.domain.Command.*;
-import static com.mowitnow.kata.lawnmower.domain.Direction.EAST;
-import static com.mowitnow.kata.lawnmower.domain.Direction.NORTH;
+import static com.mowitnow.kata.lawnmower.domain.Direction.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -26,6 +25,11 @@ public class AppTest {
             AADAADADDA
             """;
 
+    private final String LEFT_BOTTOM_STARTING_BORDER_CONTENT = """
+            5 5
+            0 0 N
+            GAGA            
+            """;
 
     @Test
     public void should_be_true_using_raw_content_file_as_input() {
@@ -47,5 +51,12 @@ public class AppTest {
                                 List.of(FORWARD, FORWARD, ROTATE_RIGHT, FORWARD, FORWARD, ROTATE_RIGHT, FORWARD, ROTATE_RIGHT, ROTATE_RIGHT, FORWARD))
                 ));
         assertEquals(List.of(new Position(1, 3, NORTH), new Position(5, 1, EAST)), app.doMow(input));
+    }
+
+    @Test
+    public void should_finish_at_same_position_if_in_right_bottom_initially() {
+        App app = new App();
+        List<Position> endPositions = app.mow(LEFT_BOTTOM_STARTING_BORDER_CONTENT);
+        assertEquals(List.of(new Position(0, 0, SOUTH)), endPositions);
     }
 }
