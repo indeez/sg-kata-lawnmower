@@ -83,3 +83,9 @@ Each component has been unit testing in most ways, though, we can go further wit
 ### Interaction
 Generate a sequence diagram to understand involving components during execution
 
+### Further purposes
+- Review unit test and improve limit tests for each component
+- try to refactor `doMow()` for use a mix of flatmap/reduce : more compact code
+- Add missing javadoc
+- Generate sequence diagram for a simple use case
+
