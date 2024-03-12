@@ -34,16 +34,20 @@ public class App {
             Position currentPosition = mowerAction.initial();
             Validator<MovingPositionValidatorParams> validator = new MovingPositionValidator(ctx.lawn());
             var endPosition = mowerAction.commands().stream()
-                    .map(cmd -> new Pair<>(currentPosition,cmd))
-                    .filter(pair -> validator.test(new MovingPositionValidatorParams(pair.left(),pair.right())))
-                    .reduce(new Pair<>(currentPosition,Command.NOP),(acc, e) -> new Pair<>(e.right().getForwardPosition(acc.left()),e.right()))
+                    .map(cmd -> new Pair<>(currentPosition, cmd))
+                    .filter(pair -> validator.test(new MovingPositionValidatorParams(pair.left(), pair.right())))
+                    .reduce(new Pair<>(currentPosition, Command.NOP), (acc, e) -> new Pair<>(e.right().getForwardPosition(acc.left()), e.right()))
                     .left();
             answer.add(endPosition);
+
         }
         return answer;
     }
 
-    record Pair<K,V>(K left, V right) {};
+    record Pair<K, V>(K left, V right) {
+    }
+
+    ;
 
     public static void main(String[] args) {
         App application = new App();

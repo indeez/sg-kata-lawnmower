@@ -26,6 +26,7 @@ public class AppTest {
             AADAADADDA
             """;
 
+
     @Test
     public void should_be_true_using_raw_content_file_as_input() {
         App app = new App();
