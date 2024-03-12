@@ -27,7 +27,7 @@ public class AppTest {
             """;
 
     @Test
-    public void should_load_file_content_using_template_string(){
+    public void should_be_true_using_raw_content_file_as_input() {
         App app = new App();
         List<Position> endPositions = app.mow(INPUT_CONTENT);
         assertEquals(List.of(new Position(1, 3, NORTH), new Position(5, 1, EAST)), endPositions);

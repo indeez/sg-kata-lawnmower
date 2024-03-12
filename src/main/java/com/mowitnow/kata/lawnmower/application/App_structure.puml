@@ -1,0 +1,208 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": true,
+    "cutInterfaceStructures": true,
+    "cutDataStructures": true,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "com.mowitnow.kata.lawnmower.application.App",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_71137322 { 
+   	label=mowitnow
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_610187941 { 
+   	label=kata
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   App965865496[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)App</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># doMow(ctx: LawnMowerInput): List&lt;Position&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ main(args: String[])</TD></TR>
+<TR><TD ALIGN="LEFT" >+ mow(inputContent: String): List&lt;Position&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ mow(inputFile: Path): List&lt;Position&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Lawn529580866[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Lawn</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   height: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   width: int [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ height(): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ width(): int</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+LawnMowerInput711836276[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)LawnMowerInput</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   lawn: Lawn [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   singleMowerActions: List&lt;SingleMowerActions&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ lawn(): Lawn</TD></TR>
+<TR><TD ALIGN="LEFT" >+ singleMowerActions(): List&lt;SingleMowerActions&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+LawnMowerInputLoader711836276[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)LawnMowerInputLoader</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- checkPreconditions(lines: List&lt;String&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >- extractAllCommands(lines: List&lt;String&gt;, i: int): List&lt;Command&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- extractLawn(line: String): Lawn</TD></TR>
+<TR><TD ALIGN="LEFT" >- extractPosition(lines: List&lt;String&gt;, i: int): Position</TD></TR>
+<TR><TD ALIGN="LEFT" >+ load(filePath: Path): LawnMowerInput</TD></TR>
+<TR><TD ALIGN="LEFT" >+ load(rawContent: String): LawnMowerInput</TD></TR>
+<TR><TD ALIGN="LEFT" >+ load(lines: List&lt;String&gt;): LawnMowerInput</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Position1688227068[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Position</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   direction: Direction [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   x: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   y: int [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ direction(): Direction</TD></TR>
+<TR><TD ALIGN="LEFT" >+ x(): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ y(): int</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+SingleMowerActions1577655954[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)SingleMowerActions</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   commands: List&lt;Command&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   initial: Position [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ commands(): List&lt;Command&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ initial(): Position</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+LawnMowerInput711836276 -> Lawn529580866[label="lawn
+[0..1]"];
+LawnMowerInput711836276 -> SingleMowerActions1577655954[label="singleMowerActions
+[0..*]"];
+SingleMowerActions1577655954 -> Position1688227068[label="initial
+[0..1]"];
+    
+}
+@enduml

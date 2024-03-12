@@ -1,5 +1,6 @@
 package com.mowitnow.kata.lawnmower.application.input;
 
+import com.mowitnow.kata.lawnmower.application.input.exceptions.InvalidInputContentFileException;
 import com.mowitnow.kata.lawnmower.application.input.exceptions.InvalidInputFileException;
 import com.mowitnow.kata.lawnmower.domain.Command;
 import com.mowitnow.kata.lawnmower.domain.Direction;
@@ -36,14 +37,14 @@ public class LawnMowerInputLoader {
         checkPreconditions(lines);
         Lawn lawn = extractLawn(lines.get(0));
         int i = 1;
-        List<LawnMowerInput.SingleMowerActions> mowerActionInputCtx = new ArrayList<>();
+        List<LawnMowerInput.SingleMowerActions> LawnMowerInputCtx = new ArrayList<>();
         while (i < lines.size()) {
             Position from = extractPosition(lines, i);
             List<Command> commands = extractAllCommands(lines, i);
-            mowerActionInputCtx.add(new LawnMowerInput.SingleMowerActions(from, commands));
+            LawnMowerInputCtx.add(new LawnMowerInput.SingleMowerActions(from, commands));
             i += 2;
         }
-        return new LawnMowerInput(lawn, mowerActionInputCtx);
+        return new LawnMowerInput(lawn, LawnMowerInputCtx);
     }
 
     private static List<Command> extractAllCommands(List<String> lines, int i) {
@@ -54,29 +55,29 @@ public class LawnMowerInputLoader {
 
     private static Position extractPosition(List<String> lines, int i) {
         Matcher matcher = POSITION_PATTERN.matcher(lines.get(i));
-        Position from;
+        Position answer;
         if (matcher.matches()) {
             int x = Integer.parseInt(matcher.group(1));
             int y = Integer.parseInt(matcher.group(2));
             Direction direction = Direction.valueOf(matcher.group(3).toUpperCase().toCharArray()[0]);
-            from = new Position(x, y, direction);
+            answer = new Position(x, y, direction);
         } else {
-            throw new InvalidInputFileException();
+            throw new InvalidInputContentFileException("Unable to extract position from input content!");
         }
-        return from;
+        return answer;
     }
 
     private static Lawn extractLawn(String line) {
         Matcher matcher = COORDINATE_PATTERN.matcher(line);
-        Lawn lawn;
+        Lawn answer;
         if (matcher.matches()) {
             int maxHeight = Integer.parseInt(matcher.group(1));
             int maxWidth = Integer.parseInt(matcher.group(2));
-            lawn = new Lawn(maxHeight, maxWidth);
+            answer = new Lawn(maxHeight, maxWidth);
         } else {
-            throw new InvalidInputFileException();
+            throw new InvalidInputContentFileException("Unable to extract Lawn caracteristics from input content !");
         }
-        return lawn;
+        return answer;
     }
 
 
