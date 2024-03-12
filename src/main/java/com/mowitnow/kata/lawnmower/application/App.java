@@ -33,18 +33,17 @@ public class App {
         for (var mowerAction : ctx.singleMowerActions()) {
             Position currentPosition = mowerAction.initial();
             Validator<MovingPositionValidatorParams> validator = new MovingPositionValidator(ctx.lawn());
-            for (Command command : mowerAction.commands()) {
-                if (validator.test(new MovingPositionValidatorParams(currentPosition, command))) {
-                    currentPosition = command.getForwardPosition(currentPosition);
-                    log.debug(command + " | " + currentPosition);
-                } else {
-                    log.debug("Applying [ " + command + " ] into position [ " + currentPosition + " ] is impossible");
-                }
-            }
-            answer.add(currentPosition);
+            var endPosition = mowerAction.commands().stream()
+                    .map(cmd -> new Pair<>(currentPosition,cmd))
+                    .filter(pair -> validator.test(new MovingPositionValidatorParams(pair.left(),pair.right())))
+                    .reduce(new Pair<>(currentPosition,Command.NOP),(acc, e) -> new Pair<>(e.right().getForwardPosition(acc.left()),e.right()))
+                    .left();
+            answer.add(endPosition);
         }
         return answer;
     }
+
+    record Pair<K,V>(K left, V right) {};
 
     public static void main(String[] args) {
         App application = new App();

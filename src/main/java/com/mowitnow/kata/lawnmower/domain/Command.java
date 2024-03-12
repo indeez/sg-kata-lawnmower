@@ -19,7 +19,11 @@ public enum Command {
     /**
      * keep moving from one position
      */
-    FORWARD('A');
+    FORWARD('A'),
+    /**
+     * No moving, neither rotate
+     */
+    NOP('N');
 
     private final char canonicalName;
 
@@ -32,6 +36,7 @@ public enum Command {
             case 'G' -> ROTATE_LEFT;
             case 'D' -> ROTATE_RIGHT;
             case 'A' -> FORWARD;
+            case 'N' -> NOP;
             default -> throw new IllegalArgumentException("Unexpected value: " + canonicalName);
         };
     }
@@ -45,6 +50,7 @@ public enum Command {
                 case SOUTH -> new Position(from.x(), subtractExact(from.y(), 1), Direction.SOUTH);
             };
             case ROTATE_RIGHT, ROTATE_LEFT -> new Position(from.x(), from.y(), from.direction().rotate(this));
+            case NOP -> from;
         };
     }
 
