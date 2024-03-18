@@ -1,50 +1,48 @@
-package com.mowitnow.kata.lawnmower.application.input;
+package com.mowitnow.kata.lawnmower.app.input;
 
-import com.mowitnow.kata.lawnmower.application.input.exceptions.InvalidInputContentFileException;
-import com.mowitnow.kata.lawnmower.application.input.exceptions.InvalidInputFileException;
+import com.mowitnow.kata.lawnmower.app.input.exceptions.InvalidInputContentFileException;
 import com.mowitnow.kata.lawnmower.domain.Command;
 import com.mowitnow.kata.lawnmower.domain.Direction;
 import com.mowitnow.kata.lawnmower.domain.Position;
 import com.mowitnow.kata.lawnmower.domain.lawn.Lawn;
 import lombok.NonNull;
 import lombok.SneakyThrows;
-import lombok.experimental.UtilityClass;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@UtilityClass
 public class LawnMowerInputLoader {
 
     private static final Pattern COORDINATE_PATTERN = Pattern.compile("^(\\d)\\s(\\d)$", Pattern.CASE_INSENSITIVE);
     private static final Pattern POSITION_PATTERN = Pattern.compile("^(\\d)\\s(\\d)\\s(\\w)$", Pattern.CASE_INSENSITIVE);
 
     @SneakyThrows
-    public LawnMowerInput load(@NonNull Path filePath) {
+    public LawnMowerGroup load(@NonNull Path filePath) {
         List<String> lines = Files.readAllLines(filePath);
         return load(lines);
     }
 
-    public LawnMowerInput load(@NonNull String rawContent) {
+    public LawnMowerGroup load(@NonNull String rawContent) {
         return load(rawContent.lines().toList());
     }
 
-    public LawnMowerInput load(@NonNull List<String> lines) {
+    public LawnMowerGroup load(@NonNull List<String> lines) {
         checkPreconditions(lines);
         Lawn lawn = extractLawn(lines.get(0));
         int i = 1;
-        List<LawnMowerInput.SingleMowerActions> LawnMowerInputCtx = new ArrayList<>();
+        List<LawnMowerGroup.LawnMower> LawnMowerInputCtx = new ArrayList<>();
         while (i < lines.size()) {
             Position from = extractPosition(lines, i);
             List<Command> commands = extractAllCommands(lines, i);
-            LawnMowerInputCtx.add(new LawnMowerInput.SingleMowerActions(from, commands));
+            LawnMowerInputCtx.add(new LawnMowerGroup.LawnMower(UUID.randomUUID(),from, commands));
             i += 2;
         }
-        return new LawnMowerInput(lawn, LawnMowerInputCtx);
+        return new LawnMowerGroup(lawn, LawnMowerInputCtx);
     }
 
     private static List<Command> extractAllCommands(List<String> lines, int i) {

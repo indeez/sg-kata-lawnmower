@@ -1,9 +1,12 @@
 package com.mowitnow.kata.lawnmower.domain;
 
+import com.mowitnow.kata.lawnmower.app.input.LawnMowerGroup;
 import com.mowitnow.kata.lawnmower.domain.validator.Validator;
+import com.mowitnow.kata.lawnmower.domain.validator.position.PositionValidator;
 import lombok.Getter;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static java.lang.Math.addExact;
 import static java.lang.Math.subtractExact;
@@ -59,6 +62,10 @@ public enum Command {
 
     public Position getForwardPosition(Position from, Validator<Position> validator) {
         return Optional.of(getForwardPosition(from)).filter(validator).orElse(from);
+    }
+
+    public Position getForwardPosition(Position from, LawnMowerGroup group) {
+        return Optional.of(getForwardPosition(from)).filter(new PositionValidator(group.lawn())).orElse(from);
     }
 
 }
